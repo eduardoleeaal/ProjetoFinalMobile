@@ -1,4 +1,4 @@
-package com.grupo7.trabalhofinal.ui.theme
+package com.grupo7.trab.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
