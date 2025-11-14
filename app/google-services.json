@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "750975973634",
+    "project_id": "postoteste-e7aaa",
+    "storage_bucket": "postoteste-e7aaa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750975973634:android:7034982ade54701302ea1b",
+        "android_client_info": {
+          "package_name": "com.grup7.trab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV-CHL2MnCl2aIeyy2ceio35KrBdbvv-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750975973634:android:8d47657deb70bbf702ea1b",
+        "android_client_info": {
+          "package_name": "com.grupo7.trab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV-CHL2MnCl2aIeyy2ceio35KrBdbvv-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750975973634:android:1c50f1824905be0002ea1b",
+        "android_client_info": {
+          "package_name": "com.grupo7.trabalhofinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV-CHL2MnCl2aIeyy2ceio35KrBdbvv-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,6 +4,7 @@ import com.grupo7.trabalhofinal.data.local.db.AppDatabase
 import com.grupo7.trabalhofinal.data.local.model.Bomba
 import com.grupo7.trabalhofinal.data.local.model.Produto
 import com.grupo7.trabalhofinal.data.local.model.Venda
+import com.grupo7.trabalhofinal.data.local.model.Usuario
 import kotlinx.coroutines.flow.Flow
 
 
@@ -12,9 +13,21 @@ class LocalRepository(
 ) {
 
     // DAOs
+    private val usuarioDao = db.usuarioDao()
     private val bombaDao = db.bombaDao()
     private val produtoDao = db.produtoDao()
     private val vendaDao = db.vendaDao()
+
+    // --- Usuarios ---
+    fun getUsuarios(): Flow<List<Usuario>> = usuarioDao.getAll()
+
+    suspend fun getUsuarioById(id: String): Usuario? = usuarioDao.getById(id)
+
+    suspend fun insertUsuario(usuario: Usuario): Long = usuarioDao.insert(usuario)
+
+    suspend fun updateUsuario(usuario: Usuario) = usuarioDao.update(usuario)
+
+    suspend fun deleteUsuario(usuario: Usuario) = usuarioDao.delete(usuario)
 
     // --- Bombas ---
     fun getBombas(): Flow<List<Bomba>> = bombaDao.getAll()
@@ -47,4 +60,6 @@ class LocalRepository(
     suspend fun deleteVenda(venda: Venda) = vendaDao.delete(venda)
 
     suspend fun markVendaSynced(localId: Long) = vendaDao.markSynced(localId)
+    
+    suspend fun getVendasByUsuarioId(usuarioId: String): List<Venda> = vendaDao.getVendasByUsuarioId(usuarioId)
 }

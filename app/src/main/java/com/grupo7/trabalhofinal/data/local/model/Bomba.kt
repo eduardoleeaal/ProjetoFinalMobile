@@ -9,5 +9,6 @@ data class Bomba(
     val identificador: String,
     val tipoCombustivel: String,
     val preco: Double,
-    val status: String // "ativa", "manutencao", etc.
+    val status: String, // "ativa", "manutencao", etc.
+    val produtoId: Long? = null // ID do produto no estoque
 )
