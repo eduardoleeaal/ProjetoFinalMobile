@@ -1,12 +1,14 @@
 package com.grupo7.trabalhofinal.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.grupo7.trabalhofinal.viewmodel.AuthViewModel
 import com.grupo7.trabalhofinal.viewmodel.BombasViewModel
 import com.grupo7.trabalhofinal.viewmodel.EstoqueViewModel
+import com.grupo7.trabalhofinal.viewmodel.RelatoriosViewModel
 import com.grupo7.trabalhofinal.viewmodel.VendasViewModel
 import com.grupo7.trabalhofinal.ui.screens.* // assumindo que as screens ficam em ui.screens
 
@@ -16,9 +18,13 @@ fun AppNavGraph(
     authViewModel: AuthViewModel,
     bombasViewModel: BombasViewModel,
     vendasViewModel: VendasViewModel,
-    estoqueViewModel: EstoqueViewModel
+    estoqueViewModel: EstoqueViewModel,
+    relatoriosViewModel: RelatoriosViewModel
 ) {
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    // Verificar se usuário já está logado ao iniciar
+    val startDestination = if (authViewModel.user != null) Screen.Home.route else Screen.Login.route
+    
+    NavHost(navController = navController, startDestination = startDestination) {
 
         composable(Screen.Login.route) {
             LoginScreen(
@@ -33,6 +39,11 @@ fun AppNavGraph(
                 onNavigateToVendas = { navController.navigate(Screen.Vendas.route) },
                 onNavigateToEstoque = { navController.navigate(Screen.Estoque.route) },
                 onNavigateToRelatorios = { navController.navigate(Screen.Relatorios.route) },
+                onLogout = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                },
                 authViewModel = authViewModel
             )
         }
@@ -50,7 +61,7 @@ fun AppNavGraph(
         }
 
         composable(Screen.Relatorios.route) {
-            RelatoriosScreen(onBack = { navController.popBackStack() })
+            RelatoriosScreen(viewModel = relatoriosViewModel, onBack = { navController.popBackStack() })
         }
     }
 }

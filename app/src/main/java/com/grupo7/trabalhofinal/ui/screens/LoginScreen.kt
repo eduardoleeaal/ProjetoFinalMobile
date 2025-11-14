@@ -1,10 +1,12 @@
 package com.grupo7.trabalhofinal.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.grupo7.trabalhofinal.viewmodel.AuthViewModel
@@ -46,6 +48,7 @@ fun LoginScreen(
             onValueChange = { authViewModel.password = it },
             label = { Text("Senha") },
             visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )

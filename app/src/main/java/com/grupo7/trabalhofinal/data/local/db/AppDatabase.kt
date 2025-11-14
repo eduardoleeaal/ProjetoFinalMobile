@@ -7,17 +7,20 @@ import androidx.room.RoomDatabase
 import com.grupo7.trabalhofinal.data.local.dao.BombaDao
 import com.grupo7.trabalhofinal.data.local.dao.ProdutoDao
 import com.grupo7.trabalhofinal.data.local.dao.VendaDao
+import com.grupo7.trabalhofinal.data.local.dao.UsuarioDao
 import com.grupo7.trabalhofinal.data.local.model.Bomba
 import com.grupo7.trabalhofinal.data.local.model.Produto
 import com.grupo7.trabalhofinal.data.local.model.Venda
+import com.grupo7.trabalhofinal.data.local.model.Usuario
 
 @Database(
-    entities = [Bomba::class, Produto::class, Venda::class],
-    version = 1,
+    entities = [Usuario::class, Bomba::class, Produto::class, Venda::class],
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
+    abstract fun usuarioDao(): UsuarioDao
     abstract fun bombaDao(): BombaDao
     abstract fun produtoDao(): ProdutoDao
     abstract fun vendaDao(): VendaDao
@@ -39,7 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "posto_db"
             )
-                // .fallbackToDestructiveMigration() // habilite somente em desenvolvimento se necessário
+                .fallbackToDestructiveMigration() // Facilita desenvolvimento - remove em produção
                 .build()
         }
     }

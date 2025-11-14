@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         val syncManager = SyncManager(localRepository, remoteRepository)
 
         // ViewModelFactory
-        val factory = ViewModelFactory(localRepository, remoteRepository)
+        val factory = ViewModelFactory(localRepository, remoteRepository, applicationContext)
 
         setContent {
             val navController = rememberNavController()
@@ -50,6 +50,9 @@ class MainActivity : ComponentActivity() {
             }
             val estoqueViewModel: EstoqueViewModel = remember {
                 viewModelProvider.get(EstoqueViewModel::class.java)
+            }
+            val relatoriosViewModel: RelatoriosViewModel = remember {
+                viewModelProvider.get(RelatoriosViewModel::class.java)
             }
 
             // Observa o usuário logado e inicia SyncManager quando houver login
@@ -71,7 +74,8 @@ class MainActivity : ComponentActivity() {
                 authViewModel = authViewModel,
                 bombasViewModel = bombasViewModel,
                 vendasViewModel = vendasViewModel,
-                estoqueViewModel = estoqueViewModel
+                estoqueViewModel = estoqueViewModel,
+                relatoriosViewModel = relatoriosViewModel
             )
         }
     }
