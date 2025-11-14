@@ -26,17 +26,12 @@ class SyncManager(
 
     fun startSync(scope: CoroutineScope) {
         // se já estiver rodando, ignora
-        if (job?.isActive == true) {
-            Log.d(tag, "⚠️ SyncManager já está rodando")
-            return
-        }
+        if (job?.isActive == true) return
 
-        Log.i(tag, "🚀 Iniciando SyncManager...")
         job = scope.launch(coroutineContext) {
             // coletar continuamente; o Flow emitirá quando houver mudanças
             try {
                 localRepository.getVendasUnsynced().collect { unsyncedList ->
-                    Log.d(tag, "Vendas não sincronizadas encontradas: ${unsyncedList.size}")
                     if (unsyncedList.isEmpty()) {
                         // pequena pausa para evitar loop apertado quando não há nada
                         delay(1000)

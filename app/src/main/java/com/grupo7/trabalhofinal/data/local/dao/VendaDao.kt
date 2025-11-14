@@ -26,8 +26,4 @@ interface VendaDao {
     // marca uma venda local como sincronizada
     @Query("UPDATE vendas SET synced = 1 WHERE id = :id")
     suspend fun markSynced(id: Long)
-    
-    // buscar vendas por usuarioId
-    @Query("SELECT * FROM vendas WHERE usuarioId = :usuarioId ORDER BY data DESC")
-    suspend fun getVendasByUsuarioId(usuarioId: String): List<Venda>
 }

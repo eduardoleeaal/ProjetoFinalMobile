@@ -16,8 +16,6 @@ class RemoteRepository {
     // --- Auth ---
     fun currentUserId(): String? = auth.currentUser?.uid
 
-    fun getCurrentUser(): FirebaseUser? = auth.currentUser
-
     suspend fun signIn(email: String, password: String): Result<FirebaseUser?> {
         return try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
@@ -59,6 +57,7 @@ class RemoteRepository {
         }
     }
 
+
     suspend fun fetchRecentVendas(limit: Long = 100): Result<List<Map<String, Any>>> {
         return try {
             val snapshot = firestore.collection("vendas")
@@ -74,17 +73,7 @@ class RemoteRepository {
         }
     }
 
-    // --- Firestore: Usuarios ---
-    suspend fun uploadUsuario(usuario: Map<String, Any>): Result<String> {
-        return try {
-            val ref = firestore.collection("usuarios").add(usuario).await()
-            Result.success(ref.id)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    // --- Firestore: Bombas ---
+    // --- Firestore: Bombas / Produtos (opcionais) ---
     suspend fun uploadBombaRemote(bombaData: Map<String, Any>): Result<String> {
         return try {
             val ref = firestore.collection("bombas").add(bombaData).await()
@@ -114,35 +103,6 @@ class RemoteRepository {
             Result.success(mapped)
         } catch (e: Exception) {
             Result.failure(e)
-        }
-    }
-
-    // --- Método para obter todas as vendas (para relatórios) ---
-    suspend fun getVendas(): List<Venda> {
-        return try {
-            val snapshot = firestore.collection("vendas")
-                .orderBy("data", Query.Direction.DESCENDING)
-                .get()
-                .await()
-
-            snapshot.documents.mapNotNull { doc ->
-                try {
-                    Venda(
-                        id = 0L, // ID local não usado aqui
-                        bombaId = (doc.getLong("bombaId") ?: -1L),
-                        usuarioId = doc.getString("usuarioId") ?: "",
-                        litros = doc.getDouble("litros") ?: 0.0,
-                        valor = doc.getDouble("valor") ?: 0.0,
-                        pagamento = doc.getString("pagamento") ?: "",
-                        data = doc.getLong("data") ?: 0L,
-                        synced = true
-                    )
-                } catch (e: Exception) {
-                    null
-                }
-            }
-        } catch (e: Exception) {
-            emptyList()
         }
     }
 }
