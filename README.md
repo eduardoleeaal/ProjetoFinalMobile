@@ -84,6 +84,27 @@ Aplicativo Android desenvolvido em Kotlin com Jetpack Compose para gerenciamento
 1. **Android Studio** (versão Hedgehog ou superior)
 2. **JDK 17** ou superior
 3. **Dispositivo Android** (físico ou emulador) com API 24+ (Android 7.0)
+4. **Conta Google** para configuração do Firebase
+
+### Configuração do Firebase
+
+1. Acesse o [Firebase Console](https://console.firebase.google.com/)
+2. Crie um novo projeto ou use o existente: `postoteste-e7aaa`
+3. Adicione um aplicativo Android com o package name: `com.grupo7.trabalhofinal`
+4. Baixe o arquivo `google-services.json`
+5. Coloque o arquivo em `app/google-services.json`
+6. Configure as regras do Firestore:
+
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
 
 ### Executando o Projeto
 
